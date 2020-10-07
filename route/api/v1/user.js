@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 router.post('/add', (req, res) => {
   // 值验证
-  if (!req.query.username || !req.query.password) {
+  if (!req.body.username || !req.body.password) {
     res.status(400).json('参数错误')
   } else {
     // id值生成(根据数据库数量累加id)

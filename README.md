@@ -1,2 +1,5 @@
 # shop_backend
-```node app.js
+```javascript
+express
+```
+

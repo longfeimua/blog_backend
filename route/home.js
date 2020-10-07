@@ -1,7 +1,15 @@
 const express = require('express')
-const router = express.Router();
+const app = express()
+const router = express.Router()
 
-router.get('/',(req,res)=>{
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+
+router.post('/', (req, res) => {
+  console.log('---------------------------');
+  console.log(req.body);
   res.send('首页')
 })
 

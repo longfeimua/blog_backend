@@ -1,8 +1,14 @@
 const express = require('express');
-const app = express();
-
+const bodyParser = require('body-parser')
 const home = require('./route/home')
 const api = require('./route/api/v1/api')
+
+//初始化
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 /* 路由分发 */
 app.use('/', home);
 app.use('/api/v1', api);
