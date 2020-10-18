@@ -1,6 +1,18 @@
+/* 
+  post
+  http://host:3000/api/v1/login
+  {
+    username,
+    password
+  }
+
+*/
+
 const express = require('express');
 const router = express.Router();
-const DB = require('../../../DataBase/mongodb')
+const DB = require('../../../module/mongodb')
+const jwt = require('jsonwebtoken')
+const { PRIVITE_KEY, EXPIRESD } = require('../../../module/key')
 
 /* 登录模块 */
 router.post('/', (req, res, next) => {
@@ -14,20 +26,21 @@ router.post('/', (req, res) => {
   DB.FindDoc('manage', 'user', { username: req.body.username }).then(data => {
     if (!data[0]) {
       res.json({
-        status: 'fail',
+        code: '-1',
         info: '无此用户！请检查输入是否正确'
       })
     } else {
       if (req.body.username === data[0].username && req.body.password === data[0].password) {
-
+        // 生成基于jwt的token令牌
+        token = jwt.sign({ username: req.body.username }, PRIVITE_KEY, { expiresIn: EXPIRESD })
         res.json({
-          status: 'sucsess',
+          code: '1',
           info: '欢迎 ' + req.body.username,
-          token: 'admin ' + data[0]._id //token验证值
+          token: 'Bearer ' + token
         })
       } else {
         res.json({
-          status: 'fail',
+          code: '-1',
           info: '账号或密码错误！'
         })
       }

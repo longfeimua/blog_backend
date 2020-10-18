@@ -1,11 +1,14 @@
 const express = require('express');
-const { route } = require('../../home');
 const router = express.Router();
 
 const login = require('./login')
-const store = require('./user')
+const register = require('./register')
+const blog = require('./blog')
+
+
 /* api模块路由分发 */
-router.use('/login',login)
-router.use('/store',store)
+router.use('/login', login)
+router.use('/register', register)
+router.use('/blog', blog)
 
 module.exports = router
