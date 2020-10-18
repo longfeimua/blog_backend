@@ -23,7 +23,7 @@ router.post('/', (req, res, next) => {
 
 router.post('/', (req, res) => {
   /* 数据处理模块 */
-  DB.FindDoc('manage', 'user', { username: req.body.username }).then(data => {
+  DB.findDoc('manage', 'user', { username: req.body.username }).then(data => {
     if (!data[0]) {
       res.json({
         code: '-1',

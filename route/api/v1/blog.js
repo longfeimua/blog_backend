@@ -36,10 +36,10 @@ router.post('/add', (req, res) => {
   let DD = time.getDate()
 
   //写入数据
-  DB.GetCount('manage', 'article')
+  DB.getCount('manage', 'article')
     .then((count) => {
       console.log('数量' + count);
-      DB.CreateDoc('manage', 'article', {
+      DB.createDoc('manage', 'article', {
         articleId: '' + YY + MM + DD + count,
         date: time.getTime(),
         author: req.user.username,
@@ -57,7 +57,7 @@ router.get('/e/:articleId', (req, res) => {
   if (!req.params.articleId) {
     return res.status(400).json('参数错误')
   }
-  DB.FindDoc('manage', 'article', {
+  DB.findDoc('manage', 'article', {
     articleId: req.params.articleId
   }).then(doc => {
     res.send(doc)

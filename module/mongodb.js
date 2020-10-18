@@ -16,7 +16,7 @@ const url = 'mongodb://192.168.102.135:27017';
 // 连接数据库
 
 /* 查询文档 */
-module.exports.FindDoc = function (dbName, collectionName, fliter) {
+module.exports.findDoc = function (dbName, collectionName, fliter) {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
       if (err) {
@@ -38,7 +38,7 @@ module.exports.FindDoc = function (dbName, collectionName, fliter) {
 }
 
 /* 创建文档 */
-module.exports.CreateDoc = function (dbName, collectionName, obj) {
+module.exports.createDoc = function (dbName, collectionName, obj) {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
       if (err) {
@@ -60,7 +60,7 @@ module.exports.CreateDoc = function (dbName, collectionName, obj) {
 }
 
 /* 更新文档 */
-module.exports.UpdataDoc = function (dbName, collectionName, fliter_id, DocObj) {
+module.exports.updataDoc = function (dbName, collectionName, fliter_id, DocObj) {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
       if (err) {
@@ -82,7 +82,7 @@ module.exports.UpdataDoc = function (dbName, collectionName, fliter_id, DocObj) 
 }
 
 /* 删除文档 */
-module.exports.DelleteDoc = function (dbName, collectionName, fliter_id) {
+module.exports.delleteDoc = function (dbName, collectionName, fliter_id) {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
       if (err) {
@@ -104,7 +104,7 @@ module.exports.DelleteDoc = function (dbName, collectionName, fliter_id) {
 }
 
 /* 获取文档数量 */
-module.exports.GetCount = function (dbName, collectionName) {
+module.exports.getCount = function (dbName, collectionName) {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
       if (err) {
