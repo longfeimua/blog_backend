@@ -1,6 +1,6 @@
 /**
- * 1、FindDoc(dbName, collectionName, [fliter])
- *    查询文档
+ * 1、FindDoc(dbName, collectionName, [fliter], [skip], [limit])
+ *    查询文档(默认查询30条符合要求的数据)
  * 2、CreateDoc(dbName, collectionName, obj)
  *    创建文档
  * 3、UpdataDoc(dbName, collectionName, fliter_id, DocObj)
@@ -16,7 +16,7 @@ const url = 'mongodb://192.168.102.135:27017';
 // 连接数据库
 
 /* 查询文档 */
-module.exports.findDoc = function (dbName, collectionName, fliter) {
+module.exports.findDoc = function (dbName, collectionName, fliter, skip, limit) {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
       if (err) {
@@ -25,8 +25,10 @@ module.exports.findDoc = function (dbName, collectionName, fliter) {
       }
       let dbo = db.db(dbName)
       fliter = fliter ? fliter : {}
+      skip = skip ? skip : 0
+      limit = limit ? limit : 30
       //查询数据
-      dbo.collection(collectionName).find(fliter).toArray((err, doc) => {
+      dbo.collection(collectionName).find(fliter).limit(limit).skip(skip).toArray((err, doc) => {
         if (err) {
           console.error(err);
         }

@@ -52,7 +52,7 @@ router.post('/add', (req, res) => {
 })
 
 // 获取文章
-router.get('/e/:articleId', (req, res) => {
+router.get('/article/:articleId', (req, res) => {
   // 数据验证
   if (!req.params.articleId) {
     return res.status(400).json('参数错误')
@@ -64,5 +64,15 @@ router.get('/e/:articleId', (req, res) => {
   })
 })
 
+//获取10条文章数据
+router.get('/', (req, res) => {
+  // 初始化值
+  let skip = req.params.skip ? req.params.skip : 0
+  let limit = req.params.limit ? req.params.limit : 30
+
+  DB.findDoc('manage', 'article', {}, skip, limit).then(doc => {
+    res.send(doc)
+  })
+})
 
 module.exports = router

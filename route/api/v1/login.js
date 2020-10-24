@@ -17,7 +17,7 @@ const { PRIVITE_KEY, EXPIRESD } = require('../../../module/key')
 /* 登录模块 */
 router.post('/', (req, res, next) => {
   /* 登录验证 */
-  if (!req.body.username || !req.body.password) return res.json({ status: 'fail', info: '请输入账号或密码！' })
+  if (!req.body.username || !req.body.password) return res.json({ code: -1, info: '请输入账号或密码！' })
   next()
 })
 
@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
   DB.findDoc('manage', 'user', { username: req.body.username }).then(data => {
     if (!data[0]) {
       res.json({
-        code: '-1',
+        code: -2,
         info: '无此用户！请检查输入是否正确'
       })
     } else {
@@ -34,13 +34,13 @@ router.post('/', (req, res) => {
         // 生成基于jwt的token令牌
         token = jwt.sign({ username: req.body.username }, PRIVITE_KEY, { expiresIn: EXPIRESD })
         res.json({
-          code: '1',
+          code: 1,
           info: '欢迎 ' + req.body.username,
           token: 'Bearer ' + token
         })
       } else {
         res.json({
-          code: '-1',
+          code: -3,
           info: '账号或密码错误！'
         })
       }
