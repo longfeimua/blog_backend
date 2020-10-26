@@ -33,9 +33,12 @@ router.post('/', (req, res) => {
       if (req.body.username === data[0].username && req.body.password === data[0].password) {
         // 生成基于jwt的token令牌
         token = jwt.sign({ username: req.body.username }, PRIVITE_KEY, { expiresIn: EXPIRESD })
+        const userinfo = {
+          username:data[0].username
+        }
         res.json({
           code: 1,
-          info: '欢迎 ' + req.body.username,
+          info: userinfo,
           token: 'Bearer ' + token
         })
       } else {

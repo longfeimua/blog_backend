@@ -3,6 +3,8 @@
  * http://host:3000/api/v1/blog/add
  * {
  *    content,
+ *    headline,
+ *    describe
  * }
  * 
  * get
@@ -20,7 +22,7 @@ const DB = require('../../../module/mongodb')
 // 传入文章
 router.post('/add', (req, res, next) => {
   //数据验证
-  if (!req.body.content) {
+  if (!req.body.content || !req.body.headline || !req.body.describe) {
     res.status(400).json('参数错误')
     return
   }
@@ -38,16 +40,19 @@ router.post('/add', (req, res) => {
   //写入数据
   DB.getCount('manage', 'article')
     .then((count) => {
-      console.log('数量' + count);
       DB.createDoc('manage', 'article', {
         articleId: '' + YY + MM + DD + count,
-        date: time.getTime(),
+        date: YY + "-" + MM + "-" + DD + "-",
         author: req.user.username,
-        content: req.body.content
+        content: req.body.content,
+        headline: req.body.headline,
+        describe: req.body.describe
       })
     })
     .then(doc => {
-      res.send(doc)
+      res.send({
+        code: 1
+      })
     })
 })
 
@@ -68,7 +73,7 @@ router.get('/article/:articleId', (req, res) => {
 router.get('/', (req, res) => {
   // 初始化值
   let skip = req.params.skip ? req.params.skip : 0
-  let limit = req.params.limit ? req.params.limit : 30
+  let limit = req.params.limit ? req.params.limit : 10
 
   DB.findDoc('manage', 'article', {}, skip, limit).then(doc => {
     res.send(doc)
