@@ -42,7 +42,7 @@ router.post('/add', (req, res) => {
     .then((count) => {
       DB.createDoc('manage', 'article', {
         articleId: '' + YY + MM + DD + count,
-        date: YY + "-" + MM + "-" + DD + "-",
+        date: YY + "-" + MM + "-" + DD,
         author: req.user.username,
         content: req.body.content,
         headline: req.body.headline,

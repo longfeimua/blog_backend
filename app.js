@@ -30,7 +30,12 @@ app.use(expressjwt({
   secret: PRIVITE_KEY,
   algorithms: ['HS256']
 }).unless({
-  path: ['/api/v1/login', '/api/v1/register', '/api/v1/blog', '/api/v1/blog/article/:articleId']
+  path: [
+    '/api/v1/login',
+    '/api/v1/register',
+    '/api/v1/blog',
+    /^\/api\/v1\/blog\/article\/.*/   /* unless用到正则表达式（regex）表示动态路由 */
+  ]
 }))
 
 /* 路由分发 */
