@@ -12,7 +12,7 @@
  */
 
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://192.168.102.135:27017';
+const url = 'mongodb://127.0.0.1:27017';
 // 连接数据库
 
 /* 查询文档 */

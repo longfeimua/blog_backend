@@ -22,7 +22,8 @@ app.all('/api/*', function (req, res, next) {
   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
   res.header('X-Powered-By', ' 3.2.1')
   if (req.method == 'OPTIONS') res.sendStatus(200)
-   /*让options请求快速返回*/ else next()
+		/*让options请求快速返回*/ 
+		else next()
 })
 
 //验证token
@@ -51,4 +52,4 @@ app.use((err, req, res, next) => {
   }
 })
 
-app.listen(3000);
+app.listen(3000,()=>{console.log("listen on port 3000")});
