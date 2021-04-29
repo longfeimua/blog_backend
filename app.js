@@ -27,17 +27,15 @@ app.all('/api/*', function (req, res, next) {
 })
 
 //验证token
-app.use(expressjwt({
-  secret: PRIVITE_KEY,
-  algorithms: ['HS256']
-}).unless({
-  path: [
-    '/api/v1/login',
-    '/api/v1/register',
-    '/api/v1/blog',
-    /^\/api\/v1\/blog\/article\/.*/   /* unless用到正则表达式（regex）表示动态路由 */
-  ]
-}))
+// app.use(expressjwt({
+//   secret: PRIVITE_KEY,
+//   algorithms: ['HS256']
+// }).unless({
+//   path: [
+//     '/api/v1/login',
+//     '/api/v1/register',
+//   ]
+// }))
 
 /* 路由分发 */
 app.use('/', home);
