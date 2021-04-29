@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser')
-const home = require('./route/home')
 const api = require('./route/api/v1/api')
 const cookieParser = require('cookie-parser')
 const expressjwt = require('express-jwt')
@@ -38,7 +37,6 @@ app.all('/api/*', function (req, res, next) {
 // }))
 
 /* 路由分发 */
-app.use('/', home);
 app.use('/api/v1', api);
 
 /* 错误处理中间件 */
